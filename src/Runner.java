@@ -1,22 +1,19 @@
-import auto.Camry;
-import auto.Car;
-import auto.StartCarException;
-import auto.Wheel;
+import auto.components.Color;
+import auto.components.Transmission;
+import auto.exceptions.CountyFactoryNotEqualException;
+import auto.manufacture.Conveyer;
+import auto.manufacture.Country;
+import auto.manufacture.Factory;
 
-import java.util.Arrays;
-
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
 public class Runner {
     public static void main(String[] args) {
-        Car camry1 = new Camry("Красный", "Робот");
+        System.out.println("Создаем машины через конвейер");
+        Factory factory = new Factory(Country.RUSSIA);
         try {
-            camry1.startDrive();
-        } catch (StartCarException e) {
+            Conveyer conveyer = new Conveyer(factory, Country.RUSSIA);
+            System.out.println(conveyer.createCamry(Color.GREEN, Transmission.AUTOMATIC, 1000).getTransmission());
+        } catch (CountyFactoryNotEqualException e) {
             System.out.println(e.getMessage());
         }
-        camry1.stopDrive();
-        camry1.lightsOn();
-        camry1.lightsOff();
     }
 }

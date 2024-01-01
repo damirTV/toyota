@@ -1,9 +1,12 @@
-package auto;
+package auto.types;
+
+import auto.exceptions.StartCarException;
+import auto.components.*;
 
 public abstract class Car {
-    private String color;
+    private Color color;
     private int maxSpeed;
-    private String transmission;
+    private Transmission transmission;
     private boolean isDrive;
     private double price;
     private FuelTank fuelTank;
@@ -12,31 +15,33 @@ public abstract class Car {
     private Lights lights;
     private Wheel[] wheels;
 
-    public Car(String color, String transmission, int diameter) {
-        this.color = color;
-        this.transmission = transmission;
+    public Car(int diameter) {
         this.isDrive = false;
         this.wheels = new Wheel[4];
-        wheels[0] = new Wheel(diameter);
+        wheels[0] = new Wheel(diameter); // TODO - установку колес и диаметра реализовать через конвейер
+        wheels[0].setInstalled(true);
         wheels[1] = new Wheel(diameter);
+        wheels[1].setInstalled(true);
         wheels[2] = new Wheel(diameter);
+        wheels[2].setInstalled(true);
         wheels[3] = new Wheel(diameter);
+        wheels[3].setInstalled(true);
         this.engine = new Engine();
-        this.fuelTank = new FuelTank(1);
+        this.fuelTank = new FuelTank();
         this.electric = new Electric();
-        this.lights = new Lights(true);
+        this.lights = new Lights();
     }
 
     public void startDrive() throws StartCarException {
         if (wheels[0].isWork() && wheels[1].isWork() && wheels[2].isWork() && wheels[3].isWork()
-                && fuelTank.getFuelQTY() > 0 && electric.isWork() && engine.isWork()) {
+                && fuelTank.getFuelQTY() > 0 && electric.isInstalled() && engine.isInstalled()) {
             isDrive = true;
             System.out.println("Машина едет");
         } else if (fuelTank.getFuelQTY() <= 0) {
             throw new StartCarException("Ошибка: пустой бензобак");
-        } else if (!electric.isWork()) {
+        } else if (!electric.isInstalled()) {
             throw new StartCarException("Ошибка: электрика неработоспособна");
-        } else if (!engine.isWork()) {
+        } else if (!engine.isInstalled()) {
             throw new StartCarException("Ошибка: двигатель неисправен");
         } else {
             throw new StartCarException("Ошибка: проколото колесо");
@@ -72,5 +77,57 @@ public abstract class Car {
 
     public Wheel[] getWheels() {
         return wheels;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public FuelTank getFuelTank() {
+        return fuelTank;
+    }
+
+    public void setFuelTank(FuelTank fuelTank) {
+        this.fuelTank = fuelTank;
+    }
+
+    public Engine getEngine() {
+        return engine;
+    }
+
+    public void setEngine(Engine engine) {
+        this.engine = engine;
+    }
+
+    public Electric getElectric() {
+        return electric;
+    }
+
+    public void setElectric(Electric electric) {
+        this.electric = electric;
+    }
+
+    public void setLights(Lights lights) {
+        this.lights = lights;
+    }
+
+    public Transmission getTransmission() {
+        return transmission;
+    }
+
+    public void setTransmission(Transmission transmission) {
+        this.transmission = transmission;
+    }
+
+    public int getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    public void setMaxSpeed(int maxSpeed) {
+        this.maxSpeed = maxSpeed;
     }
 }

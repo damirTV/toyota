@@ -1,4 +1,4 @@
-package auto;
+package auto.exceptions;
 
 public class StartCarException extends Exception {
 
