@@ -10,8 +10,10 @@ import auto.models.Solara;
 
 public class Conveyer {
     private Factory factory;
+    private Country country;
     public Conveyer(Factory factory, Country country) throws CountyFactoryNotEqualException {
         if (factory.getCountry() == country) {
+            this.country = country;
             this.factory = factory;
         } else throw new CountyFactoryNotEqualException("Ошибка: Страны фабрики и конвейера не совпадают");
         // TODO - добавить логику на вывод в ошибку какие страны не совпали
@@ -27,6 +29,7 @@ public class Conveyer {
         camry.setLights(factory.createLights());
         camry.setTransmission(factory.createTransmission(transmission));
         camry.setPrice(price);
+        camry.setCountry(country);
         return camry;
     }
 
@@ -39,6 +42,7 @@ public class Conveyer {
         solara.setLights(factory.createLights());
         solara.setTransmission(factory.createTransmission(transmission));
         solara.setPrice(price);
+        solara.setCountry(country);
         return solara;
     }
 
@@ -51,6 +55,7 @@ public class Conveyer {
         hiance.setLights(factory.createLights());
         hiance.setTransmission(factory.createTransmission(transmission));
         hiance.setPrice(price);
+        hiance.setCountry(country);
         return hiance;
     }
 
@@ -63,6 +68,7 @@ public class Conveyer {
         dyna.setLights(factory.createLights());
         dyna.setTransmission(factory.createTransmission(transmission));
         dyna.setPrice(price);
+        dyna.setCountry(country);
         return dyna;
     }
 }

@@ -2,6 +2,7 @@ package auto.types;
 
 import auto.exceptions.StartCarException;
 import auto.components.*;
+import auto.manufacture.Country;
 
 public abstract class Car {
     private Color color;
@@ -14,6 +15,7 @@ public abstract class Car {
     private Electric electric;
     private Lights lights;
     private Wheel[] wheels;
+    private Country country;
 
     public Car(int diameter) {
         this.isDrive = false;
@@ -129,5 +131,13 @@ public abstract class Car {
 
     public void setMaxSpeed(int maxSpeed) {
         this.maxSpeed = maxSpeed;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 }
