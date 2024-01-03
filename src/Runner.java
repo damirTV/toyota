@@ -1,25 +1,12 @@
-import auto.components.Color;
-import auto.components.Transmission;
 import auto.exceptions.CountyFactoryNotEqualException;
-import auto.manufacture.Conveyer;
-import auto.manufacture.Country;
-import auto.manufacture.Factory;
-import auto.manufacture.Storage;
-import auto.models.Camry;
+import auto.sales.Office;
 
 public class Runner {
     public static void main(String[] args) {
-        System.out.println("Создаем машины через конвейер");
-        Factory factory = new Factory(Country.RUSSIA);
         try {
-            Conveyer conveyer = new Conveyer(factory, Country.RUSSIA);
-            Camry camry1 = conveyer.createCamry(Color.GREEN, Transmission.AUTOMATIC, 1000);
-            System.out.println(camry1);
-            Storage storage1 = new Storage(Country.RUSSIA);
-            storage1.addCamry(camry1);
-            System.out.println("Количество Camry на складе: " + storage1.camryQTY());
-            storage1.removeCamry(Color.RED, Transmission.AUTOMATIC);
-            System.out.println("Количество Camry на складе: " + storage1.camryQTY());
+            double[] buyers = new double[] {10000, 12000, 15000, 22000, 11000, 13000, 8000, 30000};
+            Office office = new Office();
+            System.out.println(office.workingDay(buyers));
         } catch (CountyFactoryNotEqualException e) {
             System.out.println(e.getMessage());
         }

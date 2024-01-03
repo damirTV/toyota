@@ -176,4 +176,48 @@ public class Storage {
         }
         return carsQTY;
     }
+
+    public Camry findCamry() {
+        for (Camry camry : camries) {
+            if (camry != null) {
+                Camry clone = camry;
+                removeCamry(camry.getColor(), camry.getTransmission());
+                return clone;
+            }
+        }
+        return null;
+    }
+
+    public Dyna findDyna() {
+        for (Dyna dyna : dynas) {
+            if (dyna != null) {
+                Dyna clone = dyna;
+                removeDyna(dyna.getColor(), dyna.getTransmission());
+                return clone;
+            }
+        }
+        return null;
+    }
+
+    public Hiance findHiance() {
+        for (Hiance hiance : hiances) {
+            if (hiance != null) {
+                Hiance clone = hiance;
+                removeHiance(hiance.getColor(), hiance.getTransmission());
+                return clone;
+            }
+        }
+        return null;
+    }
+
+    public Solara findSolara() {
+        for (Solara solara : solaras) {
+            if (solara != null) {
+                Solara clone = solara;
+                removeSolara(solara.getColor(), solara.getTransmission());
+                return clone;
+            }
+        }
+        return null;
+    }
 }
