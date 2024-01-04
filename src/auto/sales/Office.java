@@ -9,6 +9,8 @@ import auto.manufacture.Factory;
 import auto.manufacture.Storage;
 import auto.types.Car;
 
+import java.io.IOException;
+
 public class Office {
     Factory factory;
     Conveyer conveyer;
@@ -19,7 +21,7 @@ public class Office {
         Country country = Country.JAPAN; // Страна для склада, производства и сборки
         factory = new Factory(country);
         conveyer = new Conveyer(factory, country);
-        storage = new Storage(country);
+        storage = new Storage();
         cashiers = new Cashier[] {new Cashier(), new Cashier(), new Cashier()}; // Кол-во касс в офисе
 
         storage.addCamry(conveyer.createCamry(Color.BLACK, Transmission.AUTOMATIC, Price.CAMRY.getPriceFromStorage()));
@@ -28,24 +30,30 @@ public class Office {
         storage.addSolara(conveyer.createSolara(Color.WHITE, Transmission.ROBOT, Price.SOLARA.getPriceFromStorage()));
     }
 
-    public double workingDay(double[] buyers) {
+    public void workingDay(double[] buyers) throws IOException {
+        Manager manager = new Manager(storage, conveyer, "Иван");
         for (int i = 0; i < buyers.length; i++) {
-            Manager manager = new Manager(storage, conveyer, "Иван");
             Buyer buyer = new Buyer(buyers[i]);
             Car car = manager.saleCar(buyer);
             if (car != null) {
                 freeCashier().addRevenue(car);
             }
         }
-        return freeCashier().getRevenueSummary();
+        System.out.println("Сумма выручки проданных машин: " + freeCashier().getRevenueSummary());
+        manager.report(manager.getName());
     }
 
     public Cashier freeCashier() { //Метод для определения свободного кассира
-        return switch ((int) (Math.random() * 2)) {
+        return switch ((int) (Math.random() * 3)) {
             case (0) -> cashiers[0];
             case (1) -> cashiers[1];
             case (2) -> cashiers[2];
             default -> null;
         };
+    }
+
+    public void report() {
+        Report reports = new Report();
+        reports.reportNow("Иван");
     }
 }

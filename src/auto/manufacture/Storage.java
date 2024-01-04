@@ -14,10 +14,8 @@ public class Storage {
     private Dyna[] dynas;
     private Hiance[] hiances;
     private Solara[] solaras;
-    private Country country;
 
-    public Storage(Country country) {
-        this.country = country;
+    public Storage() {
         carsCounter = 0;
         this.camries = new Camry[CARS_LIMIT];
         this.dynas = new Dyna[CARS_LIMIT];

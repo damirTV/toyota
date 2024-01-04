@@ -10,6 +10,10 @@ import auto.models.Hiance;
 import auto.models.Solara;
 import auto.types.Car;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class Manager {
     private Storage storage;
     private Conveyer conveyer;
@@ -24,43 +28,59 @@ public class Manager {
     public Car saleCar(Buyer buyer) {
         double maxPrice = buyer.getMoney();
         switch (carForSale(maxPrice)) {
-            case ("camry"):
+            case ("Camry"):
                 Camry camry = storage.findCamry();
                 if (camry != null) {
+                    Report reports = new Report();
+                    reports.addReport(new Record(name, "Camry", camry.getPrice(), Price.CAMRY.getPriceCost()));
                     return camry;
                 } else {
                     storage.addCamry(conveyer.createCamry(Color.BLACK, Transmission.AUTOMATIC, Price.CAMRY.getPriceFromProduction()));
                     camry = storage.findCamry();
+                    Report reports = new Report();
+                    reports.addReport(new Record(name, "Camry", camry.getPrice(), Price.CAMRY.getPriceCost()));
                     return camry;
                 }
-            case ("solara"):
+            case ("Solara"):
                 Solara solara = storage.findSolara();
                 if (solara != null) {
+                    Report reports = new Report();
+                    reports.addReport(new Record(name, "Solara", solara.getPrice(), Price.SOLARA.getPriceCost()));
                     return solara;
                 } else {
                     storage.addSolara(conveyer.createSolara(Color.BLACK, Transmission.AUTOMATIC, Price.SOLARA.getPriceFromProduction()));
                     solara = storage.findSolara();
+                    Report reports = new Report();
+                    reports.addReport(new Record(name, "Solara", solara.getPrice(), Price.SOLARA.getPriceCost()));
                     return solara;
                 }
-            case ("hiance"):
+            case ("Hiance"):
                 Hiance hiance = storage.findHiance();
                 if (hiance != null) {
+                    Report reports = new Report();
+                    reports.addReport(new Record(name, "Hiance", hiance.getPrice(), Price.HIANCE.getPriceCost()));
                     return hiance;
                 } else {
                     storage.addHiance(conveyer.createHiance(Color.BLACK, Transmission.AUTOMATIC, Price.HIANCE.getPriceFromProduction()));
                     hiance = storage.findHiance();
+                    Report reports = new Report();
+                    reports.addReport(new Record(name, "Hiance", hiance.getPrice(), Price.HIANCE.getPriceCost()));
                     return hiance;
                 }
-            case ("dyna"):
+            case ("Dyna"):
                 Dyna dyna = storage.findDyna();
                 if (dyna != null) {
+                    Report reports = new Report();
+                    reports.addReport(new Record(name, "Dyna", dyna.getPrice(), Price.DYNA.getPriceCost()));
                     return dyna;
                 } else {
                     storage.addDyna(conveyer.createDyna(Color.BLACK, Transmission.AUTOMATIC, Price.DYNA.getPriceFromProduction()));
                     dyna = storage.findDyna();
+                    Report reports = new Report();
+                    reports.addReport(new Record(name, "Dyna", dyna.getPrice(), Price.DYNA.getPriceCost()));
                     return dyna;
                 }
-            case (""):
+            case ("Null"):
                 return null;
         }
         return null;
@@ -76,7 +96,38 @@ public class Manager {
         } else if (maxPrice >= Price.DYNA.getPriceFromStorage()) {
             return Price.DYNA.getModel();
         } else {
-            return "";
+            return Price.NULL.getModel();
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void report(String name) throws IOException {
+        double allRevenue = 0;
+        double allCost = 0;
+        double allProfit = 0;
+        String buffer;
+        Report report = new Report();
+        int lengthReport = report.getCounter();
+
+        File reportFile = new File("report.tx");
+        reportFile.createNewFile();
+        FileOutputStream outputStream = new FileOutputStream(reportFile);
+        outputStream.write(("Имя менеджера: " + name + "\n").getBytes());
+        for (int i = 0; i < lengthReport; i++) {
+            buffer = "Модель: " + report.getReports()[i].getModelCar() + " - Продажа: " + report.getReports()[i].getPriceSale()
+            + " - Себестоимость: " + report.getReports()[i].getPriceCost();
+            outputStream.write(buffer.getBytes());
+            allRevenue += report.getReports()[i].getPriceSale();
+            allCost += report.getReports()[i].getPriceCost();
+            allProfit = allProfit + (allRevenue - allCost);
+            outputStream.write("\n".getBytes());
+        }
+        allProfit = allRevenue - allCost;
+        buffer = "Итог: доходы " + allRevenue + ", расходы " + allCost + ", прибыль " + allProfit;
+        outputStream.write(buffer.getBytes());
+        outputStream.close();
     }
 }

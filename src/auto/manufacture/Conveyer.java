@@ -15,9 +15,8 @@ public class Conveyer {
         if (factory.getCountry() == country) {
             this.country = country;
             this.factory = factory;
-        } else throw new CountyFactoryNotEqualException("Ошибка: Страны фабрики и конвейера не совпадают");
-        // TODO - добавить логику на вывод в ошибку какие страны не совпали
-
+        } else throw new CountyFactoryNotEqualException("Ошибка: Страна фабрики (" + factory.getCountry() +
+                ") и конвейера (" + country + ") не совпадают");
     }
 
     public Camry createCamry(Color color, Transmission transmission, double price) {
