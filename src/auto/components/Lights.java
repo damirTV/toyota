@@ -2,7 +2,7 @@ package auto.components;
 
 public class Lights {
     private boolean installed;
-    private boolean status;
+    private boolean isWork;
 
     public Lights() {
     }
@@ -15,11 +15,11 @@ public class Lights {
         this.installed = installed;
     }
 
-    public void on() {
-        status = true;
+    public void setWork(boolean status) {
+        isWork = status;
     }
 
-    public void off() {
-        status = false;
+    public boolean isWork() {
+        return isWork;
     }
 }

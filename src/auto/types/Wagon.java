@@ -3,8 +3,8 @@ package auto.types;
 public class Wagon extends Car {
     private int loadCapacity;
 
-    public Wagon(int diameter) {
-        super(diameter);
+    public Wagon() {
+        super();
     }
 
     public int getLoadCapacity() {

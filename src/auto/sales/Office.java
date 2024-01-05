@@ -2,6 +2,7 @@ package auto.sales;
 
 import auto.components.Color;
 import auto.components.Transmission;
+import auto.components.Wheel;
 import auto.exceptions.CountyFactoryNotEqualException;
 import auto.manufacture.Conveyer;
 import auto.manufacture.Country;
@@ -37,6 +38,11 @@ public class Office {
             Car car = manager.saleCar(buyer);
             if (car != null) {
                 freeCashier().addRevenue(car);
+                buyer.setCar(car);
+                System.out.println("Проверка замены колес");
+                System.out.println("Текущие колеса: " + buyer.getCar().getWheel(0) + " " + buyer.getCar().getWheel(2));
+                buyer.getCar().changeWheels(buyer.getCar().getWheel(1), buyer.getCar().getWheel(0));
+                System.out.println("Текущие колеса: " + buyer.getCar().getWheel(0) + " " + buyer.getCar().getWheel(1));
             }
         }
         System.out.println("Сумма выручки проданных машин: " + freeCashier().getRevenueSummary());

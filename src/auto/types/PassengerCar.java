@@ -1,19 +1,36 @@
 package auto.types;
 
+import auto.components.CruiseControl;
+
 public class PassengerCar extends Car {
-    private boolean isCruiseControl;
+    private CruiseControl cruiseControl;
 
-    public PassengerCar(int diameter) {
-        super(diameter);
+    public PassengerCar() {
+        super();
     }
 
-    public void cruiseControlOn() {
-        isCruiseControl = true;
-        System.out.println("Круиз-контроль включен");
+    public void setCruiseControl(CruiseControl cruiseControl) {
+        this.cruiseControl = cruiseControl;
+        cruiseControl.setInstalled(true);
     }
 
-    public void cruiseControlOff() {
-        isCruiseControl = false;
-        System.out.println("Круиз-контроль выключен");
+    public String enableCruiseControl() {
+        if (!cruiseControl.isWork()) {
+            cruiseControl.setWork(true);
+            return "Круиз контроль включен";
+        } else {
+            return "Круиз контроль уже включен";
+        }
+    }
+
+
+    public String disableCruiseControl() {
+        if (cruiseControl.isWork())
+        {
+            cruiseControl.setWork(false);
+            return "Круиз контроль выключен";
+        } else {
+            return "Круиз контроль не включен";
+        }
     }
 }

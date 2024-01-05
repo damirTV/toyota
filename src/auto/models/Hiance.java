@@ -5,8 +5,13 @@ import auto.types.Wagon;
 
 public class Hiance extends Wagon {
     private Wheel spareWheel;
+
     public Hiance() {
-        super(20);
-        this.spareWheel = new Wheel(20);
+        super();
+    }
+
+    public void setSpareWheel(Wheel spareWheel) {
+        this.spareWheel = spareWheel;
+        spareWheel.setInstalled(true);
     }
 }

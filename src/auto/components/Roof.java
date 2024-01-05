@@ -1,10 +1,10 @@
 package auto.components;
 
-public class Electric {
-    private boolean isWork;
+public class Roof {
     private boolean installed;
+    private boolean isUp;
 
-    public Electric() {
+    public Roof() {
     }
 
     public boolean isInstalled() {
@@ -14,11 +14,11 @@ public class Electric {
     public void setInstalled(boolean installed) {
         this.installed = installed;
     }
-    public boolean isWork() {
-        return isWork;
+    public boolean isUp() {
+        return isUp;
     }
 
-    public void setWork(boolean work) {
-        this.isWork = work;
+    public void setUp(boolean is) {
+        isUp = is;
     }
 }

@@ -1,10 +1,10 @@
 package auto.components;
 
-public class Electric {
-    private boolean isWork;
+public class PowerSocket {
     private boolean installed;
+    private boolean isWork;
 
-    public Electric() {
+    public PowerSocket() {
     }
 
     public boolean isInstalled() {
@@ -19,6 +19,6 @@ public class Electric {
     }
 
     public void setWork(boolean work) {
-        this.isWork = work;
+        isWork = work;
     }
 }
