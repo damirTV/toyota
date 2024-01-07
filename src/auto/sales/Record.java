@@ -1,18 +1,16 @@
 package auto.sales;
 
 public class Record {
-    private String nameManager;
-    private String modelCar;
-    private double priceSale;
-    private double priceCost;
-    private double profit;
+    private final String nameManager;
+    private final String modelCar;
+    private final double priceSale;
+    private final double priceCost;
 
     public Record(String nameManager, String modelCar, double priceSale, double priceCost) {
         this.nameManager = nameManager;
         this.modelCar = modelCar;
         this.priceSale = priceSale;
         this.priceCost = priceCost;
-        this.profit = priceSale - priceCost;
     }
 
     public String getNameManager() {
@@ -29,10 +27,6 @@ public class Record {
 
     public double getPriceCost() {
         return priceCost;
-    }
-
-    public double getProfit() {
-        return profit;
     }
 }
 

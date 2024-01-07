@@ -2,6 +2,7 @@ package auto.sales;
 
 import auto.components.Color;
 import auto.components.Transmission;
+import auto.exceptions.NoFreePlaceForCar;
 import auto.manufacture.Conveyer;
 import auto.manufacture.Storage;
 import auto.models.Camry;
@@ -9,15 +10,14 @@ import auto.models.Dyna;
 import auto.models.Hiance;
 import auto.models.Solara;
 import auto.types.Car;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class Manager {
-    private Storage storage;
-    private Conveyer conveyer;
-    private String name;
+    private final Storage storage;
+    private final Conveyer conveyer;
+    private final String name;
 
     public Manager(Storage storage, Conveyer conveyer, String name) {
         this.storage = storage;
@@ -25,73 +25,83 @@ public class Manager {
         this.name = name;
     }
 
-    public Car saleCar(Buyer buyer) {
+    public Car saleCar(Buyer buyer) throws NoFreePlaceForCar {
         double maxPrice = buyer.getMoney();
         switch (carForSale(maxPrice)) {
             case ("Camry"):
                 Camry camry = storage.findCamry();
                 if (camry != null) {
                     Report reports = new Report();
-                    reports.addReport(new Record(name, "Camry", camry.getPrice(), Price.CAMRY.getPriceCost()));
-                    return camry;
+                    reports.addReport(new Record(name, "Camry", camry.getPrice(),
+                            Price.CAMRY.getPriceCost()));
                 } else {
-                    storage.addCamry(conveyer.createCamry(Color.BLACK, Transmission.AUTOMATIC, Price.CAMRY.getPriceFromProduction()));
+                    storage.addCamry(conveyer.createCamry(Color.BLACK, Transmission.AUTOMATIC,
+                            Price.CAMRY.getPriceFromProduction()));
                     camry = storage.findCamry();
                     Report reports = new Report();
-                    reports.addReport(new Record(name, "Camry", camry.getPrice(), Price.CAMRY.getPriceCost()));
-                    return camry;
+                    reports.addReport(new Record(name, "Camry", camry.getPrice(),
+                            Price.CAMRY.getPriceCost()));
                 }
+                return camry;
             case ("Solara"):
                 Solara solara = storage.findSolara();
                 if (solara != null) {
                     Report reports = new Report();
-                    reports.addReport(new Record(name, "Solara", solara.getPrice(), Price.SOLARA.getPriceCost()));
-                    return solara;
+                    reports.addReport(new Record(name, "Solara", solara.getPrice(),
+                            Price.SOLARA.getPriceCost()));
                 } else {
-                    storage.addSolara(conveyer.createSolara(Color.BLACK, Transmission.AUTOMATIC, Price.SOLARA.getPriceFromProduction()));
+                    storage.addSolara(conveyer.createSolara(Color.BLACK, Transmission.AUTOMATIC,
+                            Price.SOLARA.getPriceFromProduction()));
                     solara = storage.findSolara();
                     Report reports = new Report();
-                    reports.addReport(new Record(name, "Solara", solara.getPrice(), Price.SOLARA.getPriceCost()));
-                    return solara;
+                    reports.addReport(new Record(name, "Solara", solara.getPrice(),
+                            Price.SOLARA.getPriceCost()));
                 }
+                return solara;
             case ("Hiance"):
                 Hiance hiance = storage.findHiance();
                 if (hiance != null) {
                     Report reports = new Report();
-                    reports.addReport(new Record(name, "Hiance", hiance.getPrice(), Price.HIANCE.getPriceCost()));
-                    return hiance;
+                    reports.addReport(new Record(name, "Hiance", hiance.getPrice(),
+                            Price.HIANCE.getPriceCost()));
                 } else {
-                    storage.addHiance(conveyer.createHiance(Color.BLACK, Transmission.AUTOMATIC, Price.HIANCE.getPriceFromProduction()));
+                    storage.addHiance(conveyer.createHiance(Color.BLACK, Transmission.AUTOMATIC,
+                            Price.HIANCE.getPriceFromProduction()));
                     hiance = storage.findHiance();
                     Report reports = new Report();
-                    reports.addReport(new Record(name, "Hiance", hiance.getPrice(), Price.HIANCE.getPriceCost()));
-                    return hiance;
+                    reports.addReport(new Record(name, "Hiance", hiance.getPrice(),
+                            Price.HIANCE.getPriceCost()));
                 }
+                return hiance;
             case ("Dyna"):
                 Dyna dyna = storage.findDyna();
                 if (dyna != null) {
                     Report reports = new Report();
-                    reports.addReport(new Record(name, "Dyna", dyna.getPrice(), Price.DYNA.getPriceCost()));
-                    return dyna;
+                    reports.addReport(new Record(name, "Dyna", dyna.getPrice(),
+                            Price.DYNA.getPriceCost()));
                 } else {
-                    storage.addDyna(conveyer.createDyna(Color.BLACK, Transmission.AUTOMATIC, Price.DYNA.getPriceFromProduction()));
+                    storage.addDyna(conveyer.createDyna(Color.BLACK, Transmission.AUTOMATIC,
+                            Price.DYNA.getPriceFromProduction()));
                     dyna = storage.findDyna();
                     Report reports = new Report();
-                    reports.addReport(new Record(name, "Dyna", dyna.getPrice(), Price.DYNA.getPriceCost()));
-                    return dyna;
+                    reports.addReport(new Record(name, "Dyna", dyna.getPrice(),
+                            Price.DYNA.getPriceCost()));
                 }
-            case ("Null"):
+                return dyna;
+            default:
                 return null;
         }
-        return null;
     }
 
     public String carForSale(double maxPrice) {
-        if (maxPrice >= Price.CAMRY.getPriceFromStorage() && maxPrice < Price.SOLARA.getPriceFromStorage()) {
+        if (maxPrice >= Price.CAMRY.getPriceFromStorage() && maxPrice
+                < Price.SOLARA.getPriceFromStorage()) {
             return Price.CAMRY.getModel();
-        } else if (maxPrice >= Price.SOLARA.getPriceFromStorage() && maxPrice < Price.HIANCE.getPriceFromStorage()) {
+        } else if (maxPrice >= Price.SOLARA.getPriceFromStorage() && maxPrice
+                < Price.HIANCE.getPriceFromStorage()) {
             return Price.SOLARA.getModel();
-        } else if (maxPrice >= Price.HIANCE.getPriceFromStorage() && maxPrice < Price.DYNA.getPriceFromStorage()) {
+        } else if (maxPrice >= Price.HIANCE.getPriceFromStorage() && maxPrice
+                < Price.DYNA.getPriceFromStorage()) {
             return Price.HIANCE.getModel();
         } else if (maxPrice >= Price.DYNA.getPriceFromStorage()) {
             return Price.DYNA.getModel();
@@ -117,8 +127,9 @@ public class Manager {
         FileOutputStream outputStream = new FileOutputStream(reportFile);
         outputStream.write(("Имя менеджера: " + name + "\n").getBytes());
         for (int i = 0; i < lengthReport; i++) {
-            buffer = "Модель: " + report.getReports()[i].getModelCar() + " - Продажа: " + report.getReports()[i].getPriceSale()
-            + " - Себестоимость: " + report.getReports()[i].getPriceCost();
+            buffer = "Модель: " + report.getReports()[i].getModelCar() + " - Продажа: "
+                    + report.getReports()[i].getPriceSale() + " - Себестоимость: "
+                    + report.getReports()[i].getPriceCost();
             outputStream.write(buffer.getBytes());
             allRevenue += report.getReports()[i].getPriceSale();
             allCost += report.getReports()[i].getPriceCost();

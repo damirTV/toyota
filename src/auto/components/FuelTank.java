@@ -1,7 +1,7 @@
 package auto.components;
 
 public class FuelTank {
-    private int fuelQTY;
+    private double fuelQTY;
     private boolean installed;
 
     public FuelTank() {
@@ -15,11 +15,11 @@ public class FuelTank {
         this.installed = installed;
     }
 
-    public int getFuelQTY() {
+    public double getFuelQTY() {
         return fuelQTY;
     }
 
-    public void setFuelQTY(int fuelQTY) {
+    public void setFuelQTY(double fuelQTY) {
         this.fuelQTY = fuelQTY;
     }
 }

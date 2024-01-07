@@ -6,7 +6,7 @@ import auto.types.Cabriolet;
 public class Solara extends Cabriolet {
     private Fridge fridge;
 
-    public Solara () {
+    public Solara() {
         super();
     }
 
@@ -15,24 +15,37 @@ public class Solara extends Cabriolet {
         fridge.setInstalled(true);
     }
 
-
-    public String enableFridge() {
+    public void enableFridge() {
         if (!fridge.isWork()) {
             fridge.setWork(true);
-            return "Охлаждение включено";
+            System.out.println("Охлаждение включено");
         } else {
-            return "Охлаждение уже включено";
+            System.out.println("Охлаждение уже включено");
         }
     }
 
-
-    public String disableFridge() {
-        if (fridge.isWork())
-        {
+    public void disableFridge() {
+        if (fridge.isWork()) {
             fridge.setWork(false);
-            return "Охлаждение выключено";
+            System.out.println("Охлаждение выключено");
         } else {
-            return "Охлаждение уже выключено";
+            System.out.println("Охлаждение уже выключено");
         }
+    }
+
+    @Override
+    public void enablePower() {
+    }
+
+    @Override
+    public void disablePower() {
+    }
+
+    @Override
+    public void enableMusic() {
+    }
+
+    @Override
+    public void disableMusic() {
     }
 }

@@ -14,6 +14,7 @@ public class Roof {
     public void setInstalled(boolean installed) {
         this.installed = installed;
     }
+
     public boolean isUp() {
         return isUp;
     }

@@ -2,6 +2,7 @@ package auto.manufacture;
 
 import auto.components.Color;
 import auto.components.Transmission;
+import auto.exceptions.NoFreePlaceForCar;
 import auto.models.Camry;
 import auto.models.Dyna;
 import auto.models.Hiance;
@@ -9,136 +10,122 @@ import auto.models.Solara;
 
 public class Storage {
     private int carsCounter; // Счетчик количества машин на складе
-    private final int CARS_LIMIT = 1000; // Максимальное число машин на каждом складе
-    private Camry[] camries;
-    private Dyna[] dynas;
-    private Hiance[] hiances;
-    private Solara[] solaras;
+    private final int carsLimit = 1000; // Максимальное число машин на каждом складе
+    private final Camry[] camries;
+    private final Dyna[] dynas;
+    private final Hiance[] hiances;
+    private final Solara[] solaras;
 
     public Storage() {
         carsCounter = 0;
-        this.camries = new Camry[CARS_LIMIT];
-        this.dynas = new Dyna[CARS_LIMIT];
-        this.hiances = new Hiance[CARS_LIMIT];
-        this.solaras = new Solara[CARS_LIMIT];
+        this.camries = new Camry[carsLimit];
+        this.dynas = new Dyna[carsLimit];
+        this.hiances = new Hiance[carsLimit];
+        this.solaras = new Solara[carsLimit];
     }
 
-    public void addCamry(Camry camry) {
-        if (carsCounter == CARS_LIMIT ) {
-            System.out.println("На складе закончилось место"); // TODO - реализовать через exception
-        } else {
-            for (int i = 0; i < camries.length; i++) {
-                if (camries[i] == null) {
-                    camries[i] = camry;
-                    break;
-                }
+    public void addCamry(Camry camry) throws NoFreePlaceForCar {
+        checkFreePlace();
+        for (int i = 0; i < camries.length; i++) {
+            if (camries[i] == null) {
+                camries[i] = camry;
+                break;
             }
-            carsCounter++;
+        }
+        carsCounter++;
+    }
+
+    public void addDyna(Dyna dyna) throws NoFreePlaceForCar {
+        checkFreePlace();
+        for (int i = 0; i < dynas.length; i++) {
+            if (dynas[i] == null) {
+                dynas[i] = dyna;
+                break;
+            }
+        }
+        carsCounter++;
+    }
+
+    public void addHiance(Hiance hiance) throws NoFreePlaceForCar {
+        checkFreePlace();
+        for (int i = 0; i < hiances.length; i++) {
+            if (hiances[i] == null) {
+                hiances[i] = hiance;
+                break;
+            }
+        }
+        carsCounter++;
+    }
+
+    public void addSolara(Solara solara) throws NoFreePlaceForCar {
+        checkFreePlace();
+        for (int i = 0; i < solaras.length; i++) {
+            if (solaras[i] == null) {
+                solaras[i] = solara;
+                break;
+            }
+        }
+        carsCounter++;
+    }
+
+    public void checkFreePlace() throws NoFreePlaceForCar {
+        if (carsCounter == carsLimit) {
+            throw new NoFreePlaceForCar("Ошибка: на складе закончилось место");
         }
     }
 
-    public void addDyna(Dyna dyna) {
-        if (carsCounter == CARS_LIMIT ) {
-            System.out.println("На складе закончилось место"); // TODO - реализовать через exception
-        } else {
-            for (int i = 0; i < dynas.length; i++) {
-                if (dynas[i] == null) {
-                    dynas[i] = dyna;
-                    break;
-                }
-            }
-            carsCounter++;
-        }
-    }
-
-    public void addHiance(Hiance hiance) {
-        if (carsCounter == CARS_LIMIT ) {
-            System.out.println("На складе закончилось место"); // TODO - реализовать через exception
-        } else {
-            for (int i = 0; i < hiances.length; i++) {
-                if (hiances[i] == null) {
-                    hiances[i] = hiance;
-                    break;
-                }
-            }
-            carsCounter++;
-        }
-    }
-
-    public void addSolara(Solara solara) {
-        if (carsCounter == CARS_LIMIT ) {
-            System.out.println("На складе закончилось место"); // TODO - реализовать через exception
-        } else {
-            for (int i = 0; i < solaras.length; i++) {
-                if (solaras[i] == null) {
-                    solaras[i] = solara;
-                    break;
-                }
-            }
-            carsCounter++;
-        }
-    }
-
-    public Camry removeCamry(Color color, Transmission transmission) {
+    public void removeCamry(Color color, Transmission transmission) {
         for (int i = 0; i < camries.length; i++) {
             if (camries[i] != null) {
-                if (camries[i].getColor().equals(color) && camries[i].getTransmission().equals(transmission)) {
+                if (camries[i].getColor().equals(color)
+                        && camries[i].getTransmission().equals(transmission)) {
                     carsCounter--;
-                    Camry camryClone = camries[i];
                     camries[i] = null;
-                    return camryClone;
                 }
             }
         }
-        return null;
     }
 
-    public Dyna removeDyna(Color color, Transmission transmission) {
+    public void removeDyna(Color color, Transmission transmission) {
         for (int i = 0; i < dynas.length; i++) {
             if (dynas[i] != null) {
-                if (dynas[i].getColor().equals(color) && dynas[i].getTransmission().equals(transmission)) {
+                if (dynas[i].getColor().equals(color)
+                        && dynas[i].getTransmission().equals(transmission)) {
                     carsCounter--;
-                    Dyna dynaClone = dynas[i];
                     dynas[i] = null;
-                    return dynaClone;
                 }
             }
         }
-        return null;
     }
 
-    public Hiance removeHiance(Color color, Transmission transmission) {
+    public void removeHiance(Color color, Transmission transmission) {
         for (int i = 0; i < hiances.length; i++) {
             if (hiances[i] != null) {
-                if (hiances[i].getColor().equals(color) && hiances[i].getTransmission().equals(transmission)) {
+                if (hiances[i].getColor().equals(color)
+                        && hiances[i].getTransmission().equals(transmission)) {
                     carsCounter--;
-                    Hiance hianceClone = hiances[i];
                     hiances[i] = null;
-                    return hianceClone;
                 }
             }
         }
-        return null;
     }
 
-    public Solara removeSolara(Color color, Transmission transmission) {
+    public void removeSolara(Color color, Transmission transmission) {
         for (int i = 0; i < solaras.length; i++) {
             if (solaras[i] != null) {
-                if (solaras[i].getColor().equals(color) && solaras[i].getTransmission().equals(transmission)) {
+                if (solaras[i].getColor().equals(color)
+                        && solaras[i].getTransmission().equals(transmission)) {
                     carsCounter--;
-                    Solara solaraClone = solaras[i];
                     solaras[i] = null;
-                    return solaraClone;
                 }
             }
         }
-        return null;
     }
 
     public int camryQTY() {
         int carsQTY = 0;
-        for (int i = 0; i < camries.length;i++) {
-            if (camries[i] != null) {
+        for (Camry camry : camries) {
+            if (camry != null) {
                 carsQTY++;
             }
         }
@@ -147,8 +134,8 @@ public class Storage {
 
     public int dynaQTY() {
         int carsQTY = 0;
-        for (int i = 0; i < dynas.length;i++) {
-            if (dynas[i] != null) {
+        for (Dyna dyna : dynas) {
+            if (dyna != null) {
                 carsQTY++;
             }
         }
@@ -157,8 +144,8 @@ public class Storage {
 
     public int hianceQTY() {
         int carsQTY = 0;
-        for (int i = 0; i < hiances.length;i++) {
-            if (hiances[i] != null) {
+        for (Hiance hiance : hiances) {
+            if (hiance != null) {
                 carsQTY++;
             }
         }
@@ -167,8 +154,8 @@ public class Storage {
 
     public int solaraQTY() {
         int carsQTY = 0;
-        for (int i = 0; i < solaras.length;i++) {
-            if (solaras[i] != null) {
+        for (Solara solara : solaras) {
+            if (solara != null) {
                 carsQTY++;
             }
         }
@@ -178,9 +165,8 @@ public class Storage {
     public Camry findCamry() {
         for (Camry camry : camries) {
             if (camry != null) {
-                Camry clone = camry;
                 removeCamry(camry.getColor(), camry.getTransmission());
-                return clone;
+                return camry;
             }
         }
         return null;
@@ -189,9 +175,8 @@ public class Storage {
     public Dyna findDyna() {
         for (Dyna dyna : dynas) {
             if (dyna != null) {
-                Dyna clone = dyna;
                 removeDyna(dyna.getColor(), dyna.getTransmission());
-                return clone;
+                return dyna;
             }
         }
         return null;
@@ -200,9 +185,8 @@ public class Storage {
     public Hiance findHiance() {
         for (Hiance hiance : hiances) {
             if (hiance != null) {
-                Hiance clone = hiance;
                 removeHiance(hiance.getColor(), hiance.getTransmission());
-                return clone;
+                return hiance;
             }
         }
         return null;
@@ -211,9 +195,8 @@ public class Storage {
     public Solara findSolara() {
         for (Solara solara : solaras) {
             if (solara != null) {
-                Solara clone = solara;
                 removeSolara(solara.getColor(), solara.getTransmission());
-                return clone;
+                return solara;
             }
         }
         return null;

@@ -2,7 +2,11 @@ package auto.types;
 
 import auto.components.Roof;
 
-public class Cabriolet extends PassengerCar {
+/**
+ * Создается абстрактный класс Cabriolet, т.к. нельзя создать машину "кабриолет",
+ * всегда создается только конкретная модель кабриолета
+ */
+public abstract class Cabriolet extends PassengerCar {
     private Roof roof;
 
     public Cabriolet() {
@@ -14,23 +18,23 @@ public class Cabriolet extends PassengerCar {
         roof.setInstalled(true);
     }
 
-    public String upRoof() {
+    @Override
+    public void upRoof() {
         if (!roof.isUp()) {
             roof.setUp(true);
-            return "Крыша поднята";
+            System.out.println("Крыша поднята");
         } else {
-            return "Крыша уже поднята";
+            System.out.println("Крыша уже поднята");
         }
     }
 
-
-    public String downRoof() {
-        if (roof.isUp())
-        {
+    @Override
+    public void downRoof() {
+        if (roof.isUp()) {
             roof.setUp(false);
-            return "Крыша опущена";
+            System.out.println("Крыша опущена");
         } else {
-            return "Крыша уже опущена";
+            System.out.println("Крыша уже опущена");
         }
     }
 }

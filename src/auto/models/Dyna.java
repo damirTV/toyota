@@ -15,23 +15,55 @@ public class Dyna extends Wagon {
         powerSocket.setInstalled(true);
     }
 
-    public String enablePower() {
+    @Override
+    public void enablePower() {
         if (!powerSocket.isWork()) {
             powerSocket.setWork(true);
-            return "Зарядка включена";
+            System.out.println("Зарядка включена");
         } else {
-            return "Зарядка уже включена";
+            System.out.println("Зарядка уже включена");
         }
     }
 
-
-    public String disablePower() {
-        if (powerSocket.isWork())
-        {
+    @Override
+    public void disablePower() {
+        if (powerSocket.isWork()) {
             powerSocket.setWork(false);
-            return "Зарядка выключена";
+            System.out.println("Зарядка выключена");
         } else {
-            return "Зарядка уже выключена";
+            System.out.println("Зарядка уже выключена");
         }
+    }
+
+    @Override
+    public void enableCruiseControl() {
+    }
+
+    @Override
+    public void disableCruiseControl() {
+    }
+
+    @Override
+    public void upRoof() {
+    }
+
+    @Override
+    public void downRoof() {
+    }
+
+    @Override
+    public void enableMusic() {
+    }
+
+    @Override
+    public void disableMusic() {
+    }
+
+    @Override
+    public void enableFridge() {
+    }
+
+    @Override
+    public void disableFridge() {
     }
 }

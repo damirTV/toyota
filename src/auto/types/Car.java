@@ -1,10 +1,15 @@
 package auto.types;
 
-import auto.exceptions.StartCarException;
 import auto.components.*;
+import auto.exceptions.StartCarException;
 import auto.manufacture.Country;
 
-public class Car {
+/**
+ * Создается абстрактный класс Car, т.к. нельзя создать просто машину,
+ * всегда создается только конкретная модель машины
+ */
+public abstract class Car {
+    private String model;
     private Color color;
     private int maxSpeed;
     private Transmission transmission;
@@ -27,19 +32,21 @@ public class Car {
     }
 
     public void startDrive() throws StartCarException {
-        if (wheels[0].isWork() && wheels[1].isWork() && wheels[2].isWork() && wheels[3].isWork()
-                && fuelTank.getFuelQTY() > 0 && electric.isWork() && engine.isWork()) {
+        String error = "";
+        if (!wheels[0].isWork() && !wheels[1].isWork()
+                && !wheels[2].isWork() && !wheels[3].isWork()) {
+            error = "Ошибка: проколото колеса";
+        } else if (fuelTank.getFuelQTY() <= 0) {
+            error = error + "Ошибка: пустой бензобак";
+        } else if (!electric.isWork()) {
+            error = error + "Ошибка: электрика неисправна";
+        } else if (!engine.isWork()) {
+            error = error + "Ошибка: двигатель неисправен";
+        } else {
             isDrive = true;
             System.out.println("Машина едет");
-        } else if (fuelTank.getFuelQTY() <= 0) { // TODO - выдавать полный перечень ошибок
-            throw new StartCarException("Ошибка: пустой бензобак");
-        } else if (!electric.isWork()) {
-            throw new StartCarException("Ошибка: электрика неработоспособна");
-        } else if (!engine.isWork()) {
-            throw new StartCarException("Ошибка: двигатель неисправен");
-        } else {
-            throw new StartCarException("Ошибка: проколото колесо");
         }
+        throw new StartCarException(error);
     }
 
     public void stopDrive() {
@@ -85,16 +92,22 @@ public class Car {
         wheels[3].setInstalled(true);
     }
 
-    public void changeWheels(Wheel wheel1, Wheel wheel2) {
-        if (wheel1.getDiameter() == wheel2.getDiameter()) {
-            Wheel clone = wheel2;
-            wheel1 = wheel2;
-            wheel2 = clone;
+    public void changeWheels(int wheel1, int wheel2) {
+        if (wheels[wheel1].getDiameter() == wheels[wheel2].getDiameter()) {
+            Wheel clone = wheels[wheel1];
+            wheels[wheel1] = wheels[wheel2];
+            wheels[wheel2] = clone;
+        } else {
+            System.out.println("Диаметры колес разные");
         }
     }
 
-    public Wheel getWheel(int i) {
-        return wheels[i];
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public Color getColor() {
@@ -112,6 +125,11 @@ public class Car {
     public void setFuelTank(FuelTank fuelTank) {
         this.fuelTank = fuelTank;
         fuelTank.setInstalled(true);
+    }
+
+    public void fillFuel(double fuelQTY) {
+        fuelTank.setFuelQTY(fuelQTY);
+        System.out.println("Топливный бак заправлен на: " + fuelQTY);
     }
 
     public Engine getEngine() {
@@ -160,4 +178,24 @@ public class Car {
     public void setCountry(Country country) {
         this.country = country;
     }
+
+    public abstract void enableCruiseControl();
+
+    public abstract void disableCruiseControl();
+
+    public abstract void upRoof();
+
+    public abstract void downRoof();
+
+    public abstract void enableMusic();
+
+    public abstract void disableMusic();
+
+    public abstract void enableFridge();
+
+    public abstract void disableFridge();
+
+    public abstract void enablePower();
+
+    public abstract void disablePower();
 }

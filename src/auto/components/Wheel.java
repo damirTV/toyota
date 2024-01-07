@@ -2,7 +2,7 @@ package auto.components;
 
 public class Wheel {
     private boolean isWork;
-    private int diameter;
+    private final int diameter;
     private boolean installed;
 
     public Wheel(int diameter) {

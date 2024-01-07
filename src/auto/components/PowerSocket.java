@@ -14,6 +14,7 @@ public class PowerSocket {
     public void setInstalled(boolean installed) {
         this.installed = installed;
     }
+
     public boolean isWork() {
         return isWork;
     }

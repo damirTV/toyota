@@ -1,11 +1,11 @@
 package auto.sales;
 
 public enum Price {
-    CAMRY ("Camry",10000, 11000, 5000),
-    SOLARA ("Solara",12000, 13000, 8000),
-    HIANCE ( "Hiance",15000, 16000, 10000),
-    DYNA ( "Dyna",22000, 23000, 12000),
-    NULL ("Null",0,0, 0);
+    CAMRY("Camry", 10000, 11000, 5000),
+    SOLARA("Solara", 12000, 13000, 8000),
+    HIANCE("Hiance", 15000, 16000, 10000),
+    DYNA("Dyna", 22000, 23000, 12000),
+    NULL("Null", 0, 0, 0);
 
     private final double priceFromStorage;
     private final double priceFromProduction;

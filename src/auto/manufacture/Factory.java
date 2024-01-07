@@ -3,13 +3,9 @@ package auto.manufacture;
 import auto.components.*;
 
 public class Factory {
-    private Country country;
+    private final Country country;
 
     public Factory(Country country) {
-        this.country = country;
-    }
-
-    public void setCountry(Country country) {
         this.country = country;
     }
 

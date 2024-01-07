@@ -7,16 +7,20 @@ import auto.models.Camry;
 import auto.models.Dyna;
 import auto.models.Hiance;
 import auto.models.Solara;
+import auto.sales.Price;
 
 public class Conveyer {
-    private Factory factory;
-    private Country country;
+    private final Factory factory;
+    private final Country country;
+
     public Conveyer(Factory factory, Country country) throws CountyFactoryNotEqualException {
         if (factory.getCountry() == country) {
             this.country = country;
             this.factory = factory;
-        } else throw new CountyFactoryNotEqualException("Ошибка: Страна фабрики (" + factory.getCountry() +
-                ") и конвейера (" + country + ") не совпадают");
+        } else {
+            throw new CountyFactoryNotEqualException("Ошибка: Страна фабрики ("
+                    + factory.getCountry() + ") и конвейера (" + country + ") не совпадают");
+        }
     }
 
     public Camry createCamry(Color color, Transmission transmission, double price) {
@@ -34,6 +38,7 @@ public class Conveyer {
         camry.setUsb(factory.createUsb());
         camry.setPrice(price);
         camry.setCountry(country);
+        camry.setModel(Price.CAMRY.getModel());
         return camry;
     }
 
@@ -53,6 +58,7 @@ public class Conveyer {
         solara.setRoof(factory.createRoof());
         solara.setPrice(price);
         solara.setCountry(country);
+        solara.setModel(Price.SOLARA.getModel());
         return solara;
     }
 
@@ -68,8 +74,10 @@ public class Conveyer {
         hiance.setLights(factory.createLights());
         hiance.setTransmission(factory.createTransmission(transmission));
         hiance.setSpareWheel(factory.createWheel(diameter));
+        hiance.setLoadCapacity(1000);
         hiance.setPrice(price);
         hiance.setCountry(country);
+        hiance.setModel(Price.HIANCE.getModel());
         return hiance;
     }
 
@@ -85,8 +93,10 @@ public class Conveyer {
         dyna.setLights(factory.createLights());
         dyna.setTransmission(factory.createTransmission(transmission));
         dyna.setPowerSocket(factory.createPowerSocket());
+        dyna.setLoadCapacity(2000);
         dyna.setPrice(price);
         dyna.setCountry(country);
+        dyna.setModel(Price.DYNA.getModel());
         return dyna;
     }
 }

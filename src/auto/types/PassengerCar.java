@@ -2,7 +2,11 @@ package auto.types;
 
 import auto.components.CruiseControl;
 
-public class PassengerCar extends Car {
+/**
+ * Создается абстрактный класс PassengerCar, т.к. нельзя создать машину "легковая машина",
+ * всегда создается только конкретная модель легковой машины
+ */
+public abstract class PassengerCar extends Car {
     private CruiseControl cruiseControl;
 
     public PassengerCar() {
@@ -14,23 +18,23 @@ public class PassengerCar extends Car {
         cruiseControl.setInstalled(true);
     }
 
-    public String enableCruiseControl() {
+    @Override
+    public void enableCruiseControl() {
         if (!cruiseControl.isWork()) {
             cruiseControl.setWork(true);
-            return "Круиз контроль включен";
+            System.out.println("Круиз контроль включен");
         } else {
-            return "Круиз контроль уже включен";
+            System.out.println("Круиз контроль уже включен");
         }
     }
 
-
-    public String disableCruiseControl() {
-        if (cruiseControl.isWork())
-        {
+    @Override
+    public void disableCruiseControl() {
+        if (cruiseControl.isWork()) {
             cruiseControl.setWork(false);
-            return "Круиз контроль выключен";
+            System.out.println("Круиз контроль выключен");
         } else {
-            return "Круиз контроль не включен";
+            System.out.println("Круиз контроль не включен");
         }
     }
 }

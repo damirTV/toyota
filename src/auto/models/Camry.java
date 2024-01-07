@@ -15,24 +15,49 @@ public class Camry extends PassengerCar {
         usb.setInstalled(true);
     }
 
-
-    public String enableMusic() {
+    @Override
+    public void enableMusic() {
         if (!usb.isWork()) {
             usb.setWork(true);
-            return "Музыка включена";
+            System.out.println("Музыка включена");
         } else {
-            return "Порт уже используется";
+            System.out.println("Порт уже используется");
         }
     }
 
-
-    public String disableMusic() {
-        if (usb.isWork())
-        {
+    @Override
+    public void disableMusic() {
+        if (usb.isWork()) {
             usb.setWork(false);
-            return "Музыка выключена";
+            System.out.println("Музыка выключена");
         } else {
-            return "Порт не используется";
+            System.out.println("Порт не используется");
         }
+    }
+
+    @Override
+    public void upRoof() {
+    }
+
+    @Override
+    public void downRoof() {
+    }
+
+
+
+    @Override
+    public void enableFridge() {
+    }
+
+    @Override
+    public void disableFridge() {
+    }
+
+    @Override
+    public void enablePower() {
+    }
+
+    @Override
+    public void disablePower() {
     }
 }

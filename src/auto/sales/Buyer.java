@@ -3,7 +3,7 @@ package auto.sales;
 import auto.types.Car;
 
 public class Buyer {
-    private final double money;
+    private double money;
     private Car car;
 
     public Buyer(double money) {
@@ -20,5 +20,6 @@ public class Buyer {
 
     public void setCar(Car car) {
         this.car = car;
+        money = money - car.getPrice();
     }
 }
