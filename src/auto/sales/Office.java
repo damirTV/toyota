@@ -47,7 +47,7 @@ public class Office {
         manager.report(manager.getName());
     }
 
-    public Cashier freeCashier() { //Метод для определения свободного кассира
+    private Cashier freeCashier() { //Метод для определения свободного кассира
         return switch ((int) (Math.random() * 3)) {
             case (0) -> cashiers[0];
             case (1) -> cashiers[1];

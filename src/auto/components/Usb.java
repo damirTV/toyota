@@ -1,18 +1,10 @@
 package auto.components;
 
 public class Usb {
-    private boolean installed;
     private boolean isWork;
 
     public Usb() {
-    }
-
-    public boolean isInstalled() {
-        return installed;
-    }
-
-    public void setInstalled(boolean installed) {
-        this.installed = installed;
+        this.isWork = true;
     }
 
     public void setWork(boolean status) {

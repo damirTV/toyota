@@ -1,18 +1,13 @@
 package auto.components;
 
 public class PowerSocket {
-    private boolean installed;
     private boolean isWork;
 
     public PowerSocket() {
-    }
-
-    public boolean isInstalled() {
-        return installed;
+        this.isWork = true;
     }
 
     public void setInstalled(boolean installed) {
-        this.installed = installed;
     }
 
     public boolean isWork() {

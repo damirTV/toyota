@@ -12,7 +12,6 @@ public class Camry extends PassengerCar {
 
     public void setUsb(Usb usb) {
         this.usb = usb;
-        usb.setInstalled(true);
     }
 
     @Override

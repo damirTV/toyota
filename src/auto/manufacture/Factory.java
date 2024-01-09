@@ -14,21 +14,15 @@ public class Factory {
     }
 
     public Wheel createWheel(int diameter) {
-        Wheel wheel = new Wheel(diameter);
-        wheel.setWork(true);
-        return wheel;
+        return new Wheel(diameter);
     }
 
     public Electric createElectric() {
-        Electric electric = new Electric();
-        electric.setWork(true);
-        return electric;
+        return new Electric();
     }
 
     public Engine createEngine() {
-        Engine engine = new Engine();
-        engine.setWork(true);
-        return engine;
+        return new Engine();
     }
 
     public Color createColor(Color color) {

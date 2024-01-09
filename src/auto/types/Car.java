@@ -83,13 +83,9 @@ public abstract class Car {
 
     public void setWheels(Wheel wheelFF, Wheel wheelFR, Wheel wheelRF, Wheel wheelRR) {
         wheels[0] = wheelFF;
-        wheels[0].setInstalled(true);
         wheels[1] = wheelFR;
-        wheels[1].setInstalled(true);
         wheels[2] = wheelRF;
-        wheels[2].setInstalled(true);
         wheels[3] = wheelRR;
-        wheels[3].setInstalled(true);
     }
 
     public void changeWheels(int wheel1, int wheel2) {
@@ -124,7 +120,6 @@ public abstract class Car {
 
     public void setFuelTank(FuelTank fuelTank) {
         this.fuelTank = fuelTank;
-        fuelTank.setInstalled(true);
     }
 
     public void fillFuel(double fuelQTY) {
@@ -138,7 +133,6 @@ public abstract class Car {
 
     public void setEngine(Engine engine) {
         this.engine = engine;
-        engine.setInstalled(true);
     }
 
     public Electric getElectric() {
@@ -147,12 +141,10 @@ public abstract class Car {
 
     public void setElectric(Electric electric) {
         this.electric = electric;
-        electric.setInstalled(true);
     }
 
     public void setLights(Lights lights) {
         this.lights = lights;
-        lights.setInstalled(true);
     }
 
     public Transmission getTransmission() {

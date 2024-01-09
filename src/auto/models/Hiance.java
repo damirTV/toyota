@@ -10,7 +10,7 @@ public class Hiance extends Wagon {
     }
 
     public void setSpareWheel(Wheel spareWheel) {
-        spareWheel.setInstalled(true);
+        spareWheel.setWork(true);
     }
 
     @Override

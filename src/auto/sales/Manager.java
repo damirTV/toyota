@@ -31,61 +31,53 @@ public class Manager {
             case ("Camry"):
                 Camry camry = storage.findCamry();
                 if (camry != null) {
-                    Report reports = new Report();
-                    reports.addReport(new Record(name, "Camry", camry.getPrice(),
-                            Price.CAMRY.getPriceCost()));
+                    addReport(name, Price.CAMRY.getModel(), camry.getPrice(),
+                            Price.CAMRY.getPriceCost());
                 } else {
                     storage.addCamry(conveyer.createCamry(Color.BLACK, Transmission.AUTOMATIC,
                             Price.CAMRY.getPriceFromProduction()));
                     camry = storage.findCamry();
-                    Report reports = new Report();
-                    reports.addReport(new Record(name, "Camry", camry.getPrice(),
-                            Price.CAMRY.getPriceCost()));
+                    addReport(name, Price.CAMRY.getModel(), camry.getPrice(),
+                            Price.CAMRY.getPriceCost());
                 }
                 return camry;
             case ("Solara"):
                 Solara solara = storage.findSolara();
                 if (solara != null) {
-                    Report reports = new Report();
-                    reports.addReport(new Record(name, "Solara", solara.getPrice(),
-                            Price.SOLARA.getPriceCost()));
+                    addReport(name, Price.SOLARA.getModel(), solara.getPrice(),
+                            Price.SOLARA.getPriceCost());
                 } else {
                     storage.addSolara(conveyer.createSolara(Color.BLACK, Transmission.AUTOMATIC,
                             Price.SOLARA.getPriceFromProduction()));
                     solara = storage.findSolara();
-                    Report reports = new Report();
-                    reports.addReport(new Record(name, "Solara", solara.getPrice(),
-                            Price.SOLARA.getPriceCost()));
+                    addReport(name, Price.SOLARA.getModel(), solara.getPrice(),
+                            Price.SOLARA.getPriceCost());
                 }
                 return solara;
             case ("Hiance"):
                 Hiance hiance = storage.findHiance();
                 if (hiance != null) {
-                    Report reports = new Report();
-                    reports.addReport(new Record(name, "Hiance", hiance.getPrice(),
-                            Price.HIANCE.getPriceCost()));
+                    addReport(name, Price.HIANCE.getModel(), hiance.getPrice(),
+                            Price.HIANCE.getPriceCost());
                 } else {
                     storage.addHiance(conveyer.createHiance(Color.BLACK, Transmission.AUTOMATIC,
                             Price.HIANCE.getPriceFromProduction()));
                     hiance = storage.findHiance();
-                    Report reports = new Report();
-                    reports.addReport(new Record(name, "Hiance", hiance.getPrice(),
-                            Price.HIANCE.getPriceCost()));
+                    addReport(name, Price.HIANCE.getModel(), hiance.getPrice(),
+                            Price.HIANCE.getPriceCost());
                 }
                 return hiance;
             case ("Dyna"):
                 Dyna dyna = storage.findDyna();
                 if (dyna != null) {
-                    Report reports = new Report();
-                    reports.addReport(new Record(name, "Dyna", dyna.getPrice(),
-                            Price.DYNA.getPriceCost()));
+                    addReport(name, Price.DYNA.getModel(), dyna.getPrice(),
+                            Price.DYNA.getPriceCost());
                 } else {
                     storage.addDyna(conveyer.createDyna(Color.BLACK, Transmission.AUTOMATIC,
                             Price.DYNA.getPriceFromProduction()));
                     dyna = storage.findDyna();
-                    Report reports = new Report();
-                    reports.addReport(new Record(name, "Dyna", dyna.getPrice(),
-                            Price.DYNA.getPriceCost()));
+                    addReport(name, Price.DYNA.getModel(), dyna.getPrice(),
+                            Price.DYNA.getPriceCost());
                 }
                 return dyna;
             default:
@@ -93,7 +85,12 @@ public class Manager {
         }
     }
 
-    public String carForSale(double maxPrice) {
+    private void addReport(String name, String model, double price, double priceCost) {
+        Report reports = new Report();
+        reports.addReport(new Record(name, model, price, priceCost));
+    }
+
+    private String carForSale(double maxPrice) {
         if (maxPrice >= Price.CAMRY.getPriceFromStorage() && maxPrice
                 < Price.SOLARA.getPriceFromStorage()) {
             return Price.CAMRY.getModel();
