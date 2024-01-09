@@ -68,7 +68,7 @@ public class Storage {
         carsCounter++;
     }
 
-    public void checkFreePlace() throws NoFreePlaceForCar {
+    private void checkFreePlace() throws NoFreePlaceForCar {
         if (carsCounter == carsLimit) {
             throw new NoFreePlaceForCar("Ошибка: на складе закончилось место");
         }

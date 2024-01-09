@@ -61,7 +61,7 @@ public class Conveyer {
         return dyna;
     }
 
-    public void createCommonComponents(Car car, int diameter, Color color,
+    private void createCommonComponents(Car car, int diameter, Color color,
                                         Transmission transmission, double price) {
         car.setWheels(factory.createWheel(diameter), factory.createWheel(diameter),
                 factory.createWheel(diameter), factory.createWheel(diameter));
